@@ -21,7 +21,7 @@ def gradient_descent(theta, X, y):
     X, mean, stdev = standar_scaler(X)
     X = np.c_[np.ones(X.shape[0]), X]
     testha = [1.0, 1.0, 1.0]
-    learning_rate = 0.01
+    learning_rate = 0.1
     while (testha[0] != theta[0] and testha[1] != theta[1] and testha[2] != theta[2]):
         theta[0] = testha[0]
         theta[1] = testha[1]
@@ -29,7 +29,6 @@ def gradient_descent(theta, X, y):
         testha[0] = theta[0] - learning_rate * (1.0 / len(X)) * cost_function(theta[0], theta[1], theta[2], X, y, 0)
         testha[1] = theta[1] - learning_rate * (1.0 / len(X)) * cost_function(theta[0], theta[1], theta[2], X, y, 1)
         testha[2] = theta[2] - learning_rate * (1.0 / len(X)) * cost_function(theta[0], theta[1], theta[2], X, y, 2)
-        print(testha)
     return theta, mean, stdev
 
 def main():
@@ -37,13 +36,12 @@ def main():
     X = data.values[:, :2]
     y = np.array(data.price)
     theta = np.zeros(3)
-    print(len(X))
     theta, mean, stdev = gradient_descent(theta, X, y)
     X_test = (np.array([1650,3]) - mean) / stdev
     X_test = np.hstack([1, X_test])
     predict = prediction(theta, X_test) 
     print(predict)
-    
+        
 if __name__ == "__main__":
 	main();
 
